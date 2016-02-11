@@ -1,7 +1,6 @@
 'use strict';
 
-angular.module("appModule")
-    .controller('mainCtrl', function($http){
+angular.module("appModule").controller('mainCtrl', function($http){
         console.log("main controller loaded!");
 
         var self = this;
