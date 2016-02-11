@@ -8,6 +8,7 @@ angular.module("appModule")
 
         self.textField = "";
         self.weightField = "";
+        //self.weight =[];
 
         // Normally, data like this would be stored in a database, and this controller would issue an http:get request for it.
         self.data = [];
@@ -44,8 +45,8 @@ angular.module("appModule")
             return self.data.length;
         };
 
-        self.heaviestPet = function(){
-            return self.index({weight: 55});
+        self.heaviestPet = function() {
+             self.weight.length.find().sort({_id: -1}).limit(1);
         };
 
 
