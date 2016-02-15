@@ -47,14 +47,23 @@ angular.module("appModule").controller('mainCtrl', function($http){
 
 
         self.heaviestPet = function() {
-            for(i = 0; i < self.data.length, i++){
-
+            var place = 0;
+            var weigh = 0;
+            for(var i = 0; i < self.data.length; i++){
+                if(self.getWeights(i) > weigh){
+                    place = i;
+                    weigh = self.getWeights(i);
+                }
             }
-            return self.getWeights(2);
+            return "The Heaviest Pet is " + self.getNames(place) + " With a Weight of " + self.getWeights(place);
         };
 
         self.getWeights = function(iter) {
             return self.data[iter].weight;
-        }
+        };
+
+      self.getNames = function(iter) {
+            return self.data[iter].text;
+       };
 
     });
