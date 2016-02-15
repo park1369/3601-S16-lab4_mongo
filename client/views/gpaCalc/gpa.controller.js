@@ -8,20 +8,20 @@ angular.module('appModule').controller('gpaController', function($http){
         console.log("gpaController loaded!");
 
 
-        var gpaCtrl = this;
+        var self = this;
 
-        gpaCtrl.courseTextField = "";
-        gpaCtrl.creditTextField = "";
-        gpaCtrl.letterTextField = "";
+        self.courseTextField = "";
+        self.creditTextField = "";
+        self.letterTextField = "";
 
-        gpaCtrl.data = [];
-        gpaCtrl.course = [];
-        gpaCtrl.credit = [];
-        gpaCtrl.letter = [];
+        self.data = [];
+        self.course = [];
+        self.credit = [];
+        self.letter = [];
 
 
 
-        gpaCtrl.letterConverter = function (letter) {
+        self.letterConverter = function (letter) {
 
          if ((letter == "A") || (letter == "a")) {
                  return 4;
@@ -39,50 +39,50 @@ angular.module('appModule').controller('gpaController', function($http){
 
          };
 
-        gpaCtrl.addAll = function () {
-            if((gpaCtrl.letterConverter(gpaCtrl.letterTextField) == "invalid Grade"))  {
+        self.addAll = function () {
+            if((self.letterConverter(self.letterTextField) == "invalid Grade") && isNaN)  {
                 return alert("invalid submission");
             } else {
-                gpaCtrl.addCourse(), gpaCtrl.addCredit(), gpaCtrl.addLetter();
+                self.addCourse(), self.addCredit(), self.addLetter();
             }
         };
 
-        gpaCtrl.addData = function(){
-            gpaCtrl.addAll();
-            gpaCtrl.data.push([gpaCtrl.course[gpaCtrl.course.length - 1], gpaCtrl.credit[gpaCtrl.credit.length - 1], gpaCtrl.letter[gpaCtrl.letter.length - 1]]);
-            gpaCtrl.courseTextField = "";
-            gpaCtrl.creditTextField = "";
-            gpaCtrl.letterTextField = "";
+        self.addData = function(){
+            self.addAll();
+            self.data.push([self.course[self.course.length - 1], self.credit[self.credit.length - 1], self.letter[self.letter.length - 1]]);
+            self.courseTextField = "";
+            self.creditTextField = "";
+            self.letterTextField = "";
         };
 
 
-        gpaCtrl.addCourse = function(){
-            if (gpaCtrl.courseTextField.length >= 1) {
-            gpaCtrl.course.push(gpaCtrl.courseTextField);
-            gpaCtrl.courseTextField = "";
+        self.addCourse = function(){
+            if (self.courseTextField.length >= 1) {
+            self.course.push(self.courseTextField);
+            self.courseTextField = "";
         }};
 
-        gpaCtrl.addCredit = function(){
-            if (gpaCtrl.creditTextField.length >= 1) {
-                gpaCtrl.credit.push(gpaCtrl.creditTextField);
-                gpaCtrl.creditTextField = "";
+        self.addCredit = function(){
+            if (self.creditTextField.length >= 1) {
+                self.credit.push(self.creditTextField);
+                self.creditTextField = "";
         }};
 
-        gpaCtrl.addLetter = function(){
-            if (gpaCtrl.letterTextField.length >= 1) {
-            gpaCtrl.letter.push(gpaCtrl.letterTextField);
-            gpaCtrl.letterTextField = "";
+        self.addLetter = function(){
+            if (self.letterTextField.length >= 1) {
+            self.letter.push(self.letterTextField);
+            self.letterTextField = "";
         }};
 
-        gpaCtrl.itemsInList = function(){
-            return gpaCtrl.data.length;
+        self.itemsInList = function(){
+            return self.data.length;
         };
 
-        gpaCtrl.removeData = function(index){
-            gpaCtrl.data.splice(index, 1);
-            gpaCtrl.course.splice(index, 1);
-            gpaCtrl.credit.splice(index, 1);
-            gpaCtrl.letter.splice(index, 1);
+        self.removeData = function(index){
+            self.data.splice(index, 1);
+            self.course.splice(index, 1);
+            self.credit.splice(index, 1);
+            self.letter.splice(index, 1);
 
         }
 

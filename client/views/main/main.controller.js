@@ -44,9 +44,17 @@ angular.module("appModule").controller('mainCtrl', function($http){
             return self.data.length;
         };
 
+
+
         self.heaviestPet = function() {
-             self.weight.length.find().sort({_id: -1}).limit(1);
+            for(i = 0; i < self.data.length, i++){
+
+            }
+            return self.getWeights(2);
         };
 
+        self.getWeights = function(iter) {
+            return self.data[iter].weight;
+        }
 
     });
