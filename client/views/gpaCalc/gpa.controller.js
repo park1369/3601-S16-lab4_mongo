@@ -15,9 +15,9 @@ angular.module('appModule').controller('gpaController', function($http){
         self.letterTextField = "";
 
         self.data = [];
-        self.course = [];
-        self.credit = [];
-        self.letter = [];
+      //  self.course = [];
+      //  self.credit = [];
+      //  self.letter = [];
 
 
 
@@ -40,12 +40,13 @@ angular.module('appModule').controller('gpaController', function($http){
          };
 
         self.addAll = function () {
-            if((self.letterConverter(self.letterTextField) == "invalid Grade") && isNaN)  {
+            if((self.letterConverter(self.letterTextField) == "invalid Grade") )  {
                 return alert("invalid submission");
             } else {
                 self.addCourse(), self.addCredit(), self.addLetter();
             }
         };
+
 
         self.addData = function(){
             self.addAll();
