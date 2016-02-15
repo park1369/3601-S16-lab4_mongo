@@ -25,15 +25,15 @@ api/pets/pets.controller.js gets added to the app.js using an API route with the
 The database would contain pets. The field in the model is a string called 'text.'
 -  What functions are defined in the controller? How do they change the database data?
 index - if there's an error, returns an error message. Otherwise returns the information about the pet.
-create - if there's an error, returns an error message. Otherwise returns the actual pet.
-destroy - if there's an error, returns an error message. Otherwise removes the pet.
+create - if there's an error, returns an error message. Otherwise creates a pet (adds a pet to the mongo database).
+destroy - if there's an error, returns an error message. Otherwise removes the pet from the mongo database.
 -  How does one get or delete elements in the database?
 
-You get elements in the database with create, and you delete elements in the database with destroy.
+You get elements in the database with index, and you delete elements in the database with destroy.
 
 ##### What is the purpose of index.js in the api/pets? Where is it referenced?
 
-******The purpose of index.js is to call the pets.controller.js and route the information to the web page.
+The purpose of index.js is to define the "address" (what's behind the forward slash) of the controller so that they can be called in the web page.
 
 ##### What views are used in the project?
 
