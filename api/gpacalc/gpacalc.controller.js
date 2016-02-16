@@ -5,9 +5,10 @@ var mongoose = require('mongoose');
 // Defining Model
 // =====================================================
 
-var Pet = mongoose.model('Pet', {
-    text: String,
-    weight: Number
+var Gpa = mongoose.model('GPA', {
+    class: String,
+    credit: Number,
+    grade: String
 });
 
 
@@ -16,7 +17,7 @@ var Pet = mongoose.model('Pet', {
 // =====================================================
 
 exports.index = function(req, res) {
-    Pet.find(function (err, pets) {
+    Gpa.find(function (err, gpacalcs) {
         if (err) {
             console.log("Error getting data from database");
             res.send(err)
@@ -27,11 +28,11 @@ exports.index = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    Pet.create(req.body, function (err, pet) {
+    Gpa.create(req.body, function (err, gpacalc) {
         if (err) {
             res.send(err);
         } else {
-            Pet.find(function (err, pets) {
+            Gpa.find(function (err, gpacalcs) {
                 if (err) {
                     res.send(err);
                 }
@@ -45,13 +46,14 @@ exports.create = function(req, res) {
 
 
 exports.destroy = function(req, res) {
-    Pet.findById(req.params.pet_id, function(err, pet){
-      if(err) { res.send(err); return "error: " + err; }
-      if(!pet) { return res.sendStatus(404); }
+    Gpa.findById(req.params.gpacalc_id, function(err, gpacalc){
+        if(err) { res.send(err); return "error: " + err; }
+        if(!gpacalc) { return res.sendStatus(404); }
 
-      pet.remove(function(err){
-         if(err) { return "error: " + err}
-         return res.sendStatus(204);
-      });
+        pet.remove(function(err){
+            if(err) { return "error: " + err}
+            return res.sendStatus(204);
+        });
     });
 };
+
