@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 // Defining Model
 // =====================================================
 
-var Gpa = mongoose.model('GPA', {
-    class: String,
+var Class = mongoose.model('Class', {
+    course: String,
     credit: Number,
     grade: String
 });
@@ -16,28 +16,28 @@ var Gpa = mongoose.model('GPA', {
 // Defining Routes
 // =====================================================
 
-exports.index = function(req, res) {
-    Gpa.find(function (err, gpacalcs) {
+exports.indexdataClass = function(req, res) {
+    Class.find(function (err, classes) {
         if (err) {
             console.log("Error getting data from database");
             res.send(err)
         } else {
-            res.json(pets); // return results
+            res.json(classes); // return results
         }
     });
 };
 
-exports.create = function(req, res) {
-    Gpa.create(req.body, function (err, gpacalc) {
+exports.createClass = function(req, res) {
+    Class.create(req.body, function (err, classe) {
         if (err) {
             res.send(err);
         } else {
-            Gpa.find(function (err, gpacalcs) {
+            Class.find(function (err, classes) {
                 if (err) {
                     res.send(err);
                 }
 
-                res.json(pets);
+                res.json(classes);
             });
         }
     });
@@ -45,15 +45,14 @@ exports.create = function(req, res) {
 
 
 
-exports.destroy = function(req, res) {
-    Gpa.findById(req.params.gpacalc_id, function(err, gpacalc){
+exports.destroyClass = function(req, res) {
+    Class.findById(req.params.classe_id, function(err, classe){
         if(err) { res.send(err); return "error: " + err; }
-        if(!gpacalc) { return res.sendStatus(404); }
+        if(!classe) { return res.sendStatus(404); }
 
-        pet.remove(function(err){
+    classe.remove(function(err){
             if(err) { return "error: " + err}
             return res.sendStatus(204);
         });
     });
 };
-

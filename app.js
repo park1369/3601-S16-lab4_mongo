@@ -44,6 +44,7 @@ var options = {
 
 // API Routes
 app.use('/api/pets', require('./api/pets'));
+app.use('/api/classes', require('./api/classes'));
 //app.use('/api/heaviestPet', require('./api/heaviestPet'));
 
 // Non-API routes

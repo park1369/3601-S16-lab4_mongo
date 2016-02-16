@@ -12,6 +12,7 @@ angular.module("appModule")
             .state('gpa', {
                 url: '/gpa',
                 templateUrl: 'views/gpaCalc/gpa.html',
-                controller: 'gpaController'
+                controller: 'gpaController',
+                controllerAs: 'gpa'
             });
     });

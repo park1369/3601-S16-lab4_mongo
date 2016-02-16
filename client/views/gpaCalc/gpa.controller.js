@@ -5,88 +5,88 @@
 'use strict';
 
 angular.module('appModule').controller('gpaController', function($http){
-        console.log("gpaController loaded!");
+    console.log("gpaController loaded!");
 
 
-        var self = this;
+    var self = this;
 
-        self.courseTextField = "";
-        self.creditTextField = "";
-        self.letterTextField = "";
+    self.courseTextField = "";
+    self.creditTextField = "";
+    self.letterTextField = "";
 
-        self.data = [];
-      //  self.course = [];
-      //  self.credit = [];
-      //  self.letter = [];
+    self.data = [];
+    //  self.course = [];
+    //  self.credit = [];
+    //  self.letter = [];
 
+    self.getClasses = function(){
+        $http.get('api/classes').success(function(classes) {
+            self.data = classes;
+        });
+    };
 
+    self.getClasses();
 
-        self.letterConverter = function (letter) {
-
-         if ((letter == "A") || (letter == "a")) {
-                 return 4;
-           } else if ((letter == "B") || (letter ==  "b")) {
-                 return 3;
-            } else if ((letter == "C") || (letter ==  "c")) {
-                 return 2;
-              } else if ((letter == "D") || (letter ==  "d")) {
-                 return 1;
-          } else if ((letter == "F") || (letter ==  "f")) {
-                 return 0;
-          } else {
-                 return "invalid Grade";
-             }
-
-         };
-
-        self.addAll = function () {
-            if((self.letterConverter(self.letterTextField) == "invalid Grade") )  {
-                return alert("invalid submission");
-            } else {
-                self.addCourse(), self.addCredit(), self.addLetter();
-            }
-        };
-
-
-        self.addData = function(){
-            self.addAll();
-            self.data.push([self.course[self.course.length - 1], self.credit[self.credit.length - 1], self.letter[self.letter.length - 1]]);
+    self.addDataGpa = function(){
+        if((self.courseTextField.length >= 1) && (self.letterTextField.length >= 1)) {
+            $http.post('api/classes', {course: self.courseTextField, credit: self.creditTextField, grade: self.letterTextField}).success(function(){
+                self.getClasses();
+            });
             self.courseTextField = "";
             self.creditTextField = "";
             self.letterTextField = "";
-        };
+        }
+    };
 
+    self.removeData = function(index){
+        $http.delete('/api/classes/' + self.data[index]._id).success(function(){
+            self.getClasses();
+        });
+    };
 
-        self.addCourse = function(){
-            if (self.courseTextField.length >= 1) {
-            self.course.push(self.courseTextField);
-            self.courseTextField = "";
-        }};
+    self.gradeToNumber = function(gr){
+        if(gr == "A")
+        {
+            return 4.0;
+        }
+        if(gr == "B")
+        {
+            return 3.0;
+        }
+        if(gr == "C")
+        {
+            return 2.0;
+        }
+        if(gr == "D")
+        {
+            return 1.0;
+        }
+        if(gr == "F")
+        {
+            return 0.0;
+        }
 
-        self.addCredit = function(){
-            if (self.creditTextField.length >= 1) {
-                self.credit.push(self.creditTextField);
-                self.creditTextField = "";
-        }};
+    };
 
-        self.addLetter = function(){
-            if (self.letterTextField.length >= 1) {
-            self.letter.push(self.letterTextField);
-            self.letterTextField = "";
-        }};
-
-        self.itemsInList = function(){
-            return self.data.length;
-        };
-
-        self.removeData = function(index){
-            self.data.splice(index, 1);
-            self.course.splice(index, 1);
-            self.credit.splice(index, 1);
-            self.letter.splice(index, 1);
-
+    self.calculateGPA = function(){
+        var qualityPoints = 0;
+        var totalCredits = 0;
+        for(var i = 0; i < self.data.length; i++){
+            qualityPoints = qualityPoints + (self.data[i].credit * self.gradeToNumber(self.data[i].grade));
+            totalCredits = totalCredits + self.data[i].credit;
         }
 
 
+        return Math.round(qualityPoints/totalCredits * 100)/100;
 
-    });
+    };
+
+
+
+    self.itemsInList = function(){
+        return self.data.length;
+    };
+
+
+});
+
